@@ -25,9 +25,15 @@ namespace SolarSystem
             {
                 dataGridView1.Columns[i].Visible = false;
             }
+
+            dataGridView2.Columns["SSCommonName"].HeaderText = "Solar System";
+            dataGridView2.Columns["Id"].HeaderText = "Planet Id";
+            dataGridView2.Columns["ScientificName"].HeaderText = "Scientific Name";
+            dataGridView2.Columns["PCommonName"].HeaderText = "Common Name";
+
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnFind_Click(object sender, EventArgs e)
         {
             //long X, Y, Z, Amplitude, Range = 0;
             //try
@@ -58,7 +64,7 @@ namespace SolarSystem
             //        "Warning",MessageBoxButtons.OK, MessageBoxIcon.Warning);
             //    return;
             //}
-            var (result1, result2) = t.CallStoredProcedure();
+            var (result1, result2) = t.CallStoredProcedureSS();
             dataGridView1.DataSource = result1;
             configurarHeaders();
             definirCor();
@@ -71,10 +77,12 @@ namespace SolarSystem
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnClean_Click(object sender, EventArgs e)
         {
             dataGridView1.DataSource = null;
             dataGridView1.Rows.Clear();
+            dataGridView2.DataSource = null;
+            dataGridView2.Rows.Clear();
             txtAmplitude.Clear();
             txtRange.Clear();
             txtX.Clear();
@@ -119,6 +127,8 @@ namespace SolarSystem
                 {
                     limparS2();
                 }
+
+                dataGridView2.DataSource = t.CallSPFindPlanetsBySS((int)dataGridView1.SelectedRows[0].Cells[1].Value);
             }
         }
 
@@ -136,7 +146,7 @@ namespace SolarSystem
 
         public void definirCor()
         {
-            foreach(DataGridViewRow row in dataGridView1.Rows)
+            foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 if (row.Cells["InRange"].Value.ToString() == "I")
                 {
@@ -148,6 +158,31 @@ namespace SolarSystem
                     row.DefaultCellStyle.BackColor = Color.IndianRed;
                     row.DefaultCellStyle.SelectionBackColor = Color.OrangeRed;
                 }
+            }
+        }
+
+        private void Form1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+            {
+                // Verifica se há uma linha selecionada
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    int rowIndex = dataGridView1.SelectedRows[0].Index;
+
+                    // Atualiza a linha selecionada com base na tecla pressionada
+                    if (e.KeyCode == Keys.Up && rowIndex > 0)
+                    {
+                        dataGridView1.Rows[rowIndex - 1].Selected = true;
+                    }
+                    else if (e.KeyCode == Keys.Down && rowIndex < dataGridView1.Rows.Count - 1)
+                    {
+                        dataGridView1.Rows[rowIndex + 1].Selected = true;
+                    }
+                }
+
+                // Impede que o DataGridView processe as teclas de seta (evita que mova a célula)
+                e.IsInputKey = true;
             }
         }
     }

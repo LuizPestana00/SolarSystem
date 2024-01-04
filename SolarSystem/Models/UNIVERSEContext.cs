@@ -17,7 +17,7 @@ namespace SolarSystem.Models
         {
         }
 
-        public virtual DbSet<CountSSResult> CountResult { get; set; }
+        public virtual DbSet<SPResultPlanetBySS> SPResultPlanetBySSs { get; set; }
         public virtual DbSet<SpFindSS> SpResults { get; set; }
         public virtual DbSet<ChemComponent> ChemComponents { get; set; } = null!;
         public virtual DbSet<Flora> Floras { get; set; } = null!;

@@ -16,7 +16,7 @@ namespace SolarSystem.classes
     {
         UNIVERSEContext db;
 
-        public (List<SpFindSS> result1, CountSSResult result2) CallStoredProcedure()
+        public (List<SpFindSS> result1, CountSSResult result2) CallStoredProcedureSS()
         {
             using (var db = new UNIVERSEContext())
             {
@@ -44,7 +44,7 @@ namespace SolarSystem.classes
             }
         }
 
-        public (List<SpFindSS> result1, CountSSResult result2) CallStoredProcedure(long X, long Y, long Z, long Amplitude, long Range)
+        public (List<SpFindSS> result1, CountSSResult result2) CallStoredProcedureSS(long X, long Y, long Z, long Amplitude, long Range)
         {
             using (var db = new UNIVERSEContext())
             {
@@ -69,6 +69,16 @@ namespace SolarSystem.classes
                 var result2 = results.Read<CountSSResult>().FirstOrDefault();
 
                 return (result1, result2);
+            }
+        }
+
+        public object CallSPFindPlanetsBySS(int ss)
+        {
+            using (var db = new UNIVERSEContext())
+            {
+                var parameter = new SqlParameter("@SS", ss);
+                var result = db.SPResultPlanetBySSs.FromSqlInterpolated($"EXEC Universe.ShowPlanetsInfosBySS {ss}").ToList();
+                return result;
             }
         }
     }

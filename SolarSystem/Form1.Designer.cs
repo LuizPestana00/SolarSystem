@@ -40,8 +40,8 @@
             txtRange = new TextBox();
             label7 = new Label();
             dataGridView1 = new DataGridView();
-            button1 = new Button();
-            button2 = new Button();
+            btnClean = new Button();
+            btnFind = new Button();
             gbS2 = new GroupBox();
             label15 = new Label();
             label14 = new Label();
@@ -80,6 +80,7 @@
             txtS1Type = new TextBox();
             label25 = new Label();
             dataGridView2 = new DataGridView();
+            btnShowDetails = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             gbS2.SuspendLayout();
             gbS1.SuspendLayout();
@@ -110,14 +111,14 @@
             txtX.Location = new Point(44, 57);
             txtX.Name = "txtX";
             txtX.Size = new Size(140, 25);
-            txtX.TabIndex = 4;
+            txtX.TabIndex = 1;
             // 
             // txtY
             // 
             txtY.Location = new Point(214, 57);
             txtY.Name = "txtY";
             txtY.Size = new Size(140, 25);
-            txtY.TabIndex = 6;
+            txtY.TabIndex = 2;
             // 
             // label4
             // 
@@ -133,7 +134,7 @@
             txtZ.Location = new Point(384, 57);
             txtZ.Name = "txtZ";
             txtZ.Size = new Size(140, 25);
-            txtZ.TabIndex = 8;
+            txtZ.TabIndex = 3;
             // 
             // label5
             // 
@@ -149,7 +150,7 @@
             txtAmplitude.Location = new Point(606, 57);
             txtAmplitude.Name = "txtAmplitude";
             txtAmplitude.Size = new Size(140, 25);
-            txtAmplitude.TabIndex = 10;
+            txtAmplitude.TabIndex = 4;
             // 
             // label6
             // 
@@ -165,7 +166,7 @@
             txtRange.Location = new Point(806, 57);
             txtRange.Name = "txtRange";
             txtRange.Size = new Size(150, 25);
-            txtRange.TabIndex = 13;
+            txtRange.TabIndex = 5;
             // 
             // label7
             // 
@@ -193,25 +194,25 @@
             dataGridView1.TabIndex = 14;
             dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
             // 
-            // button1
+            // btnClean
             // 
-            button1.Location = new Point(1163, 57);
-            button1.Name = "button1";
-            button1.Size = new Size(189, 25);
-            button1.TabIndex = 15;
-            button1.Text = "Clean";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btnClean.Location = new Point(1163, 57);
+            btnClean.Name = "btnClean";
+            btnClean.Size = new Size(189, 25);
+            btnClean.TabIndex = 7;
+            btnClean.Text = "Clean";
+            btnClean.UseVisualStyleBackColor = true;
+            btnClean.Click += btnClean_Click;
             // 
-            // button2
+            // btnFind
             // 
-            button2.Location = new Point(962, 57);
-            button2.Name = "button2";
-            button2.Size = new Size(195, 25);
-            button2.TabIndex = 16;
-            button2.Text = "Find";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            btnFind.Location = new Point(962, 57);
+            btnFind.Name = "btnFind";
+            btnFind.Size = new Size(195, 25);
+            btnFind.TabIndex = 6;
+            btnFind.Text = "Find";
+            btnFind.UseVisualStyleBackColor = true;
+            btnFind.Click += btnFind_Click;
             // 
             // gbS2
             // 
@@ -567,24 +568,41 @@
             // 
             // dataGridView2
             // 
+            dataGridView2.AllowUserToAddRows = false;
+            dataGridView2.AllowUserToDeleteRows = false;
+            dataGridView2.AllowUserToOrderColumns = true;
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView2.Location = new Point(12, 423);
+            dataGridView2.MultiSelect = false;
             dataGridView2.Name = "dataGridView2";
+            dataGridView2.ReadOnly = true;
             dataGridView2.RowTemplate.Height = 25;
-            dataGridView2.Size = new Size(1346, 314);
+            dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView2.Size = new Size(1346, 221);
             dataGridView2.TabIndex = 20;
+            // 
+            // btnShowDetails
+            // 
+            btnShowDetails.Location = new Point(12, 650);
+            btnShowDetails.Name = "btnShowDetails";
+            btnShowDetails.Size = new Size(1346, 30);
+            btnShowDetails.TabIndex = 21;
+            btnShowDetails.Text = "Show Selected Planet Details";
+            btnShowDetails.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1370, 749);
+            ClientSize = new Size(1370, 671);
+            Controls.Add(btnShowDetails);
             Controls.Add(dataGridView2);
             Controls.Add(label25);
             Controls.Add(gbS1);
             Controls.Add(gbS2);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnFind);
+            Controls.Add(btnClean);
             Controls.Add(dataGridView1);
             Controls.Add(txtRange);
             Controls.Add(label7);
@@ -604,6 +622,7 @@
             Text = "Form1";
             WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
+            PreviewKeyDown += Form1_PreviewKeyDown;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             gbS2.ResumeLayout(false);
             gbS2.PerformLayout();
@@ -628,8 +647,8 @@
         private TextBox txtRange;
         private Label label7;
         private DataGridView dataGridView1;
-        private Button button1;
-        private Button button2;
+        private Button btnClean;
+        private Button btnFind;
         private GroupBox gbS2;
         private Label label15;
         private Label label14;
@@ -668,5 +687,6 @@
         private TextBox txtS1Type;
         private Label label25;
         private DataGridView dataGridView2;
+        private Button btnShowDetails;
     }
 }
