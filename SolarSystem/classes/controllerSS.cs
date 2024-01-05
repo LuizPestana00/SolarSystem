@@ -81,5 +81,138 @@ namespace SolarSystem.classes
                 return result;
             }
         }
+
+        public object Satelites(long id)
+        {
+            using (var db = new UNIVERSEContext())
+            {
+                var query = from PlanetSatelite in db.PlanetSatelites
+                            where PlanetSatelite.PlanetId == id
+                            select new
+                            {
+                                Id = PlanetSatelite.Id,
+                                ScienName = PlanetSatelite.ScientificName,
+                                CommonName = PlanetSatelite.CommonName,
+                                Radius = PlanetSatelite.Radius,
+                                DistanceToPlanet = PlanetSatelite.DistanceToPlanet,
+                                OrbitAngle = PlanetSatelite.OrbitAngle,
+                                CoreTexture = PlanetSatelite.CoreTexture,
+                                AtmosphereTexture = PlanetSatelite.AtmosphereTexture,
+                                ColorHue = PlanetSatelite.ColorHue,
+                                ColorSat = PlanetSatelite.ColorSat,
+                                ColorLum = PlanetSatelite.ColorLum,
+                                ColorRed = PlanetSatelite.ColorRed,
+                                ColorBlue = PlanetSatelite.ColorBlue,
+                                ColorGreen = PlanetSatelite.ColorGreen,
+                            };
+                return query.ToList();
+            }
+        }
+
+        public object Disks(long id)
+        {
+            using (var db = new UNIVERSEContext())
+            {
+                var query = from PlanetDisk in db.PlanetDisks
+                            where PlanetDisk.PlanetId == id
+                            select new
+                            {
+                                Id = PlanetDisk.Id,
+                                Dimension = PlanetDisk.Dimension,
+                                DistanceToPlanet = PlanetDisk.DistanceToPlanet,
+                                OrbitAngle = PlanetDisk.OrbitAngle,
+                                ColorHue = PlanetDisk.ColorHue,
+                                ColorSat = PlanetDisk.ColorSat,
+                                ColorLum = PlanetDisk.ColorLum,
+                                ColorBlue = PlanetDisk.ColorBlue,
+                                ColorGreen = PlanetDisk.ColorGreen,
+                                ColorRed = PlanetDisk.ColorRed
+                            };
+                return query.ToList();
+            }
+        }
+
+        public object Composition(long id)
+        {
+            using (var db = new UNIVERSEContext())
+            {
+                var query = from pc in db.PlanetCompositions
+                            join cc in db.ChemComponents on pc.ChemComponentId equals cc.Id
+                            where pc.PlanetId == id
+                            select new
+                            {
+                                ComponentId = cc.Id,
+                                Name = cc.Name,
+                                Symbol = cc.Symbol,
+                                MainComponents = cc.MainComponents,
+                                Percentage = pc.Percentage
+                            };
+                return query.ToList();
+            }
+        }
+
+        public object Atmosphere(long id) 
+        { 
+            using (var db = new UNIVERSEContext())
+            {
+                var query = from a in db.PlanetAtmospheres
+                            join cc in db.ChemComponents on a.ChemComponentId equals cc.Id
+                            where a.PlanetId == id
+                            select new
+                            {
+                                ComponentId = cc.Id,
+                                Name = cc.Name,
+                                Symbol = cc.Symbol,
+                                MainComponents = cc.MainComponents,
+                                Percentage = a.Percentage
+                            };
+                return query.ToList();
+            }
+        }
+
+        public object Crust(long id)
+        {
+            using (var db = new UNIVERSEContext())
+            {
+                var query = from c in db.PlanetCrusts
+                            join cc in db.ChemComponents on c.ChemComponentId equals cc.Id
+                            where c.PlanetId == id
+                            select new
+                            {
+                                ComponentId = cc.Id,
+                                Name = cc.Name,
+                                Symbol = cc.Symbol,
+                                MainComponents = cc.MainComponents,
+                                Percentage = c.Percentage
+                            };
+                var result = query.ToList();
+                if (result.Any())
+                    return result;
+                else
+                    return null;
+            }
+        }
+        public object Core(long id)
+        {
+            using (var db = new UNIVERSEContext())
+            {
+                var query = from c in db.PlanetCores
+                            join cc in db.ChemComponents on c.ChemComponentId equals cc.Id
+                            where c.PlanetId == id
+                            select new
+                            {
+                                ComponentId = cc.Id,
+                                Name = cc.Name,
+                                Symbol = cc.Symbol,
+                                MainComponents = cc.MainComponents,
+                                Percentage = c.Percentage
+                            };
+                var result = query.ToList();
+                if (result.Any())
+                    return result;
+                else
+                    return null;
+            }
+        }
     }
 }

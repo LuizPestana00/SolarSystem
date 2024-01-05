@@ -581,15 +581,18 @@
             dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView2.Size = new Size(1346, 221);
             dataGridView2.TabIndex = 20;
+            dataGridView2.SelectionChanged += dataGridView2_SelectionChanged;
             // 
             // btnShowDetails
             // 
+            btnShowDetails.Enabled = false;
             btnShowDetails.Location = new Point(12, 650);
             btnShowDetails.Name = "btnShowDetails";
             btnShowDetails.Size = new Size(1346, 30);
             btnShowDetails.TabIndex = 21;
             btnShowDetails.Text = "Show Selected Planet Details";
             btnShowDetails.UseVisualStyleBackColor = true;
+            btnShowDetails.Click += btnShowDetails_Click;
             // 
             // Form1
             // 

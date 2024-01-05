@@ -97,6 +97,7 @@ namespace SolarSystem
             txtS1Texture.Clear();
             txtS1Type.Clear();
             limparS2();
+            btnShowDetails.Enabled = false;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -184,6 +185,31 @@ namespace SolarSystem
                 // Impede que o DataGridView processe as teclas de seta (evita que mova a célula)
                 e.IsInputKey = true;
             }
+        }
+
+        private void btnShowDetails_Click(object sender, EventArgs e)
+        {
+            if (dataGridView2.SelectedRows.Count == 1)
+            {
+                PlanetDetailsForm frm = new PlanetDetailsForm(
+                    (long)dataGridView2.SelectedRows[0].Cells[1].Value,
+                    dataGridView2.SelectedRows[0].Cells[3].Value.ToString(), 
+                    dataGridView2.SelectedRows[0].Cells[2].Value.ToString(),
+                    (int)dataGridView2.SelectedRows[0].Cells[20].Value,
+                    (int)dataGridView2.SelectedRows[0].Cells[21].Value,
+                    (decimal)dataGridView2.SelectedRows[0].Cells[8].Value);
+                frm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Planet not selected");
+            }
+
+        }
+
+        private void dataGridView2_SelectionChanged(object sender, EventArgs e)
+        {
+            btnShowDetails.Enabled = true;
         }
     }
 }
