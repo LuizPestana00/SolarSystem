@@ -35,6 +35,7 @@ namespace SolarSystem
 
         private void btnFind_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             //long X, Y, Z, Amplitude, Range = 0;
             //try
             //{
@@ -68,6 +69,7 @@ namespace SolarSystem
             dataGridView1.DataSource = result1;
             configurarHeaders();
             definirCor();
+            Cursor = Cursors.Default;
             MessageBox.Show($"Total: {result2.TotalRows}\nIn Range: {result2.CountInRange}\n" +
                 $"Out of Range: {result2.CountOutOfRange}", "Results", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -130,6 +132,10 @@ namespace SolarSystem
                 }
 
                 dataGridView2.DataSource = t.CallSPFindPlanetsBySS((int)dataGridView1.SelectedRows[0].Cells[1].Value);
+                for (int i = 5; i <= 18; i++)
+                {
+                    dataGridView2.Columns[i].Visible = false;
+                }
             }
         }
 
@@ -191,13 +197,14 @@ namespace SolarSystem
         {
             if (dataGridView2.SelectedRows.Count == 1)
             {
-                PlanetDetailsForm frm = new PlanetDetailsForm(
-                    (long)dataGridView2.SelectedRows[0].Cells[1].Value,
-                    dataGridView2.SelectedRows[0].Cells[3].Value.ToString(), 
-                    dataGridView2.SelectedRows[0].Cells[2].Value.ToString(),
-                    (int)dataGridView2.SelectedRows[0].Cells[20].Value,
-                    (int)dataGridView2.SelectedRows[0].Cells[21].Value,
-                    (decimal)dataGridView2.SelectedRows[0].Cells[8].Value);
+                //PlanetDetailsForm frm = new PlanetDetailsForm(
+                //    (long)dataGridView2.SelectedRows[0].Cells[1].Value,
+                //    dataGridView2.SelectedRows[0].Cells[3].Value.ToString(), 
+                //    dataGridView2.SelectedRows[0].Cells[2].Value.ToString(),
+                //    (int)dataGridView2.SelectedRows[0].Cells[20].Value,
+                //    (int)dataGridView2.SelectedRows[0].Cells[21].Value,
+                //    (decimal)dataGridView2.SelectedRows[0].Cells[8].Value);
+                PlanetDetailsForm frm = new PlanetDetailsForm(dataGridView2.SelectedRows[0]);
                 frm.ShowDialog();
             }
             else
@@ -209,7 +216,10 @@ namespace SolarSystem
 
         private void dataGridView2_SelectionChanged(object sender, EventArgs e)
         {
-            btnShowDetails.Enabled = true;
+            if (dataGridView2.SelectedRows.Count != 0)
+                btnShowDetails.Enabled = true;
+            else
+                btnShowDetails.Enabled = false;
         }
     }
 }

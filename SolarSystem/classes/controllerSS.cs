@@ -29,8 +29,8 @@ namespace SolarSystem.classes
                         X = 50000,
                         Y = 50000,
                         Z = 50000,
-                        Amplitude = 30000,
-                        Range = 18000
+                        Amplitude = 15000,
+                        Range = 10000
                     },
                     commandType: CommandType.StoredProcedure);
 
@@ -147,7 +147,9 @@ namespace SolarSystem.classes
                                 MainComponents = cc.MainComponents,
                                 Percentage = pc.Percentage
                             };
-                return query.ToList();
+                var result = query.ToList();
+                return (result.Any()) ? result : null;
+
             }
         }
 
